@@ -37,7 +37,7 @@ pipeline {
             steps {
                script {
                    // Use IAM role configured in Jenkins credentials
-                   withAWS(region: 'us-east-1', credentials: 'aws-creds') {
+                   withAWS(region: 'us-east-1', credentials: role: 'arn:aws:iam::315069654700:role/ECRPushRole') {
                        sh """
                            # Login to ECR using the assumed role
                            aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin ${ACCOUNT_ID}.dkr.ecr.us-east-1.amazonaws.com
