@@ -36,24 +36,12 @@ pipeline {
         stage('Docker Build') {
             steps {
                script{
-                
-                 """
-                sh 
-                 docker build -t backend:v1.0.0 .
-
-
+               sh """
+                    docker build -t backend:v1.0.0. .
                  """
                }
             }
         }
-        // stage('Trigger Deploy'){
-        //     when { 
-        //         expression { params.deploy }
-        //     }
-        //     steps{
-        //         build job: 'backend-cd', parameters: [string(name: 'version', value: "${appVersion}")], wait: true
-        //     }
-        // }
     }
     post { 
         always { 
