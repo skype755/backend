@@ -4,15 +4,15 @@ pipeline {
         PROJECT = 'expense'
         COMPONENT = 'backend'
         appVersion = ''
-        ACC_ID = '315069654700'
+      
     }
     options {
         disableConcurrentBuilds()
         timeout(time: 30, unit: 'MINUTES')
     }
-    parameters{
-        booleanParam(name: 'deploy', defaultValue: false, description: 'Toggle this value')
-    }
+    // parameters{
+    //     booleanParam(name: 'deploy', defaultValue: false, description: 'Toggle this value')
+    // }
     stages {
         stage('Read Version') {
             steps {
