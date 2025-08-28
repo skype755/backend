@@ -36,18 +36,14 @@ pipeline {
         stage('Docker Build') {
             steps {
                script {
-                   // Use IAM role configured in Jenkins credentials
-                   withAWS(region: 'us-east-1', role: 'arn:aws:iam::315069654700:role/YourECRPushRole') {
-                       sh """
-                           # Login to ECR using the assumed role
-                           aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin ${ACCOUNT_ID}.dkr.ecr.us-east-1.amazonaws.com
+                   withAWS(region: 'us-east-1', credentials: 'aws-creds') {
+             sh """
+                    aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin ${ACCOUNT_ID}.dkr.ecr.us-east-1.amazonaws.com
+                    docker build -t ${ACCOUNT_ID}.dkr.ecr.us-east-1.amazonaws.com/${PROJECT}/${COMPONENT}:${appVersion} .
+                    docker push ${ACCOUNT_ID}.dkr.ecr.us-east-1.amazonaws.com/${PROJECT}/${COMPONENT}:${appVersion}
+                 """
+}
 
-                           # Build Docker image
-                           docker build -t ${ACCOUNT_ID}.dkr.ecr.us-east-1.amazonaws.com/${PROJECT}/${COMPONENT}:${appVersion} .
-
-                           # Push to ECR
-                           docker push ${ACCOUNT_ID}.dkr.ecr.us-east-1.amazonaws.com/${PROJECT}/${COMPONENT}:${appVersion}
-                       """
                    }
                  
                }
