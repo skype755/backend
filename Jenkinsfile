@@ -4,7 +4,7 @@ pipeline {
         PROJECT = 'expense'
         COMPONENT = 'backend'
         appVersion = ''
-        account_id = "060795933447"
+        // account_id = "060795933447"
       
     }
     options {
@@ -57,8 +57,8 @@ pipeline {
                 
                  """
                 sh 
-                 build -t backend:v1.0.0 .
-                 aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin ${ACCOUNT_ID}.dkr.ecr.us-east-1.amazonaws.com
+                 docker build -t backend:v1.0.0 .
+                //  aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin ${ACCOUNT_ID}.dkr.ecr.us-east-1.amazonaws.com
 
 
                  """
