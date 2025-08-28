@@ -23,15 +23,15 @@ pipeline {
                }
             }
         }
-        // stage('Install Dependencies') {
-        //     steps {
-        //        script{ 
-        //          sh """
-        //             npm install
-        //          """
-        //        }
-        //     }
-        // }
+        stage('Install Dependencies') {
+            steps {
+               script{ 
+                 sh """
+                    npm install
+                 """
+               }
+            }
+        }
         // /* stage('Run Sonarqube') {
         //     environment {
         //         scannerHome = tool 'sonar-scanner-7.1';
