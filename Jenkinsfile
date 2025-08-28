@@ -4,16 +4,15 @@ pipeline {
         PROJECT = 'expense'
         COMPONENT = 'backend'
         appVersion = ''
-        ACCOUNT_ID = "060795933447"
-      
+        ACC_ID = '315069654700'
     }
     options {
         disableConcurrentBuilds()
         timeout(time: 30, unit: 'MINUTES')
     }
-    // parameters{
-    //     booleanParam(name: 'deploy', defaultValue: false, description: 'Toggle this value')
-    // }
+    parameters{
+        booleanParam(name: 'deploy', defaultValue: false, description: 'Toggle this value')
+    }
     stages {
         stage('Read Version') {
             steps {
@@ -33,7 +32,7 @@ pipeline {
                }
             }
         }
-        
+       
         stage('Docker Build') {
             steps {
                script{
@@ -41,13 +40,16 @@ pipeline {
                     sh """
                     aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin ${ACCOUNT_ID}.dkr.ecr.us-east-1.amazonaws.com
 
-                    // docker build -t  ${ACC_ID}.dkr.ecr.us-east-1.amazonaws.com/${project}/${component}:${appVersion} .
+                    docker build -t t060795933447.dkr.ecr.us-east-1.amazonaws.com/expense/backend:appVersion
 
-                    // docker push ${ACC_ID}.dkr.ecr.us-east-1.amazonaws.com/${project}/${component}:${appVersion}
+                    docker push 060795933447.dkr.ecr.us-east-1.amazonaws.com/expense/backend:appVersion
                     """
+                }
+                 
                }
             }
         }
+        
     }
     post { 
         always { 
@@ -55,12 +57,10 @@ pipeline {
             deleteDir()
         }
         failure { 
-            echo 'I will run when pipeline is faile okay'
+            echo 'I will run when pipeline is failed'
         }
         success { 
             echo 'I will run when pipeline is success'
         }
     }
-
-}
 }
