@@ -4,7 +4,6 @@ pipeline {
         PROJECT = 'expense'
         COMPONENT = 'backend'
         appVersion = ''
-        // account_id = "060795933447"
       
     }
     options {
@@ -33,24 +32,7 @@ pipeline {
                }
             }
         }
-        // /* stage('Run Sonarqube') {
-        //     environment {
-        //         scannerHome = tool 'sonar-scanner-7.1';
-        //     }
-        //     steps {
-        //       withSonarQubeEnv('sonar-scanner-7.1') {
-        //         sh "${scannerHome}/bin/sonar-scanner"
-        //         // This is generic command works for any language
-        //       }
-        //     }
-        // }
-        // stage("Quality Gate") {
-        //     steps {
-        //       timeout(time: 1, unit: 'HOURS') {
-        //         waitForQualityGate abortPipeline: true
-        //       }
-        //     }
-        // } */
+        
         stage('Docker Build') {
             steps {
                script{
@@ -58,7 +40,6 @@ pipeline {
                  """
                 sh 
                  docker build -t backend:v1.0.0 .
-                //  aws ecr get-login-password --region us-east-1 | docker login --username AWS --password-stdin ${ACCOUNT_ID}.dkr.ecr.us-east-1.amazonaws.com
 
 
                  """
