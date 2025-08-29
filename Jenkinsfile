@@ -1,7 +1,7 @@
 pipeline {
     agent { label 'AGENT-1' }
     environment { 
-        PROJECT = 'expense'
+        PROJECT = 'expense'  
         COMPONENT = 'backend'
         appVersion = ''
         ACCOUNT_ID = '060795933447'
